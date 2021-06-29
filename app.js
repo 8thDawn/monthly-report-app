@@ -22,6 +22,7 @@ mongoose.connect(connectionString, {
 
 //Create report schema
 const reportSchema = new mongoose.Schema({
+    month: String,
     publications: Number,
     videos: Number,
     hours: Number,
@@ -51,7 +52,29 @@ app.post('/report', function (req, res) {
     })
 })
 //GET request to /report to fetch all report
+app.get('/report', (req, res) => {
+    //retrieve all reports
+    Report.find({}, (err, reports) => {
+        if (err) {
+            return res.status(500).json({message: err})
+        } else {
+            return res.status(200).json({ message: "All available reports", reports })
+        }    
+    })
+
+})
 //GET request to /request/:month to fetch report 
+app.get('/report/:month', (req, res) => {
+    Report.findOne({month: req.params.month}, (err, report) => {
+        if (err) {
+            return res.status(500).json({message: err})
+        } else if (!report) {
+            return res.status(404).json({message: "No report found"})
+        } else {
+            return res.status(200).json({ report })
+        }
+    })
+})
 //DELETE request to /report/:month to delete a report
 
 app.listen(port, function() {

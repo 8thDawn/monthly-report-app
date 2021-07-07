@@ -2,7 +2,7 @@
   "name": "monthlyfieldserviceapp",
   "version": "1.0.0",
   "description": "Report collection app for Ringroad cong",
-  "main": "app.js",
+  "main": "src/app.js",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.12.15",
